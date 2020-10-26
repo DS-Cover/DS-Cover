@@ -1,20 +1,20 @@
-import React,{useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Text, View, StyleSheet, Image} from 'react-native';
 import {Button} from 'react-native-elements';
-import { createStackNavigator } from '@react-navigation/stack';
+import {createStackNavigator} from '@react-navigation/stack';
 import DropDownPicker from 'react-native-dropdown-picker';
 import Scanner from "./Scanner";
 //import Icon from 'react-native-vector-icons/Feather';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default function MainMap({navigation, route}) {
-    const [floor,setFloor]=useState(1);
-    /*const [qrData,setQrData]=useState("");
-    React.useEffect(() => {
-        if(route.params?.data){
+    const [floor, setFloor] = useState(1);
+    const [qrData, setQrData] = useState("");
 
-        }
-    },[route.params?.post]);*/
+    if (route.params?.data) {//route.params?.type
+        //WE GO HERE WHEN DATA FROM QR SCAN IS AVAILABLE, then we display the appropriate floor or room
+
+    }
     return (
         <View style={styles.container}>
             <View style={styles.map}>
@@ -24,8 +24,8 @@ export default function MainMap({navigation, route}) {
                 <Text>Enter the floor:</Text>
                 <DropDownPicker
                     items={[
-                        {label: '1', value: '1', icon: () => <Icon name="flag" size={18} color="#900" />},
-                        {label: '0', value: '0', icon: () => <Icon name="flag" size={18} color="#900" />},
+                        {label: '1', value: '1', icon: () => <Icon name="flag" size={18} color="#900"/>},
+                        {label: '0', value: '0', icon: () => <Icon name="flag" size={18} color="#900"/>},
                     ]}
                     multiple={false}
                     defaultValue={floor.toString()}
@@ -35,7 +35,7 @@ export default function MainMap({navigation, route}) {
                         justifyContent: 'flex-start'
                     }}
                     dropDownStyle={{backgroundColor: '#fafafa'}}
-                    onChangeItem={(item) =>{
+                    onChangeItem={(item) => {
                         setFloor(item.value)
                     }}
                 />
@@ -45,16 +45,14 @@ export default function MainMap({navigation, route}) {
                     type={"outline"}
                     onPress={press}
                     title="Press to scan QR-Code"
-                    icon={<Icon name="qrcode" size={30} color="#900" />}
+                    icon={<Icon name="qrcode" size={30} color="#900"/>}
                 />
-                <Text>type of data: {route.params?.type} / the data: {route.params?.data}</Text>
+                <Text>{route.params?.data}</Text>
             </View>
         </View>
 
     );
-    function returnData(){
 
-    }
     function press() {
         navigation.navigate('Scanner');
     }
@@ -62,18 +60,18 @@ export default function MainMap({navigation, route}) {
 
 const styles = StyleSheet.create({
     container: {
-        flex:1,
+        flex: 1,
         padding: 40,
     },
-    map:{
-        flex:2
+    map: {
+        flex: 2
     },
-    dropDownPicker:{
+    dropDownPicker: {
         flex: 1
     },
-    scan:{
-        top:60,
-        flex:2
+    scan: {
+        top: 60,
+        flex: 2
 
     }
 
